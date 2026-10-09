@@ -1,0 +1,229 @@
+{
+  "lastUpdate": "2026-10-09 14:20",
+  "targets": {
+    "hongDrop": 0.4,
+    "waterDrop": 0.5
+  },
+  "products": [
+    {
+      "name": "Samsung Galaxy Tab S11 11吋 5G",
+      "version": "12+256GB",
+      "image": "assets/samsung_tab_s11.jpg",
+      "officialPrice": 8988,
+      "releaseDate": "2025-09-04",
+      "months": "13 個月",
+      "hongPrice": "$6150 - $7499",
+      "waterPrice": "$8299 - $8299",
+      "hongDrop": 0.240709835,
+      "waterDrop": 0.076657766,
+      "types": [
+        "行貨",
+        "水貨"
+      ],
+      "source": "https://www.price.com.hk/product.php?p=672318",
+      "spec": "https://www.samsung.com/hk/tablets/galaxy-tab-s/galaxy-tab-s11-gray-256gb-sm-x736bzaetgy/"
+    },
+    {
+      "name": "ASUS TUF GeForce RTX 5060 Ti",
+      "version": "OC 8GB GDDR7",
+      "image": "assets/asus_rtx_5060ti.jpg",
+      "officialPrice": 5800,
+      "releaseDate": "2025-04-15",
+      "months": "17 個月",
+      "hongPrice": "$5800 - $5800",
+      "waterPrice": "無數據",
+      "hongDrop": 0.0,
+      "waterDrop": null,
+      "types": [
+        "行貨"
+      ],
+      "source": "https://www.jumbo-computer.com/zh-hk/products/gigabyte-geforce-rtx-5060-ti-aours-elite-16gb-gddr7-gv-n506taorus-e-16gd",
+      "spec": "https://www.asus.com/us/motherboards-components/graphics-cards/tuf-gaming/tuf-rtx5060ti-o8g-gaming/techspec/"
+    },
+    {
+      "name": "Samsung 4TB 990 EVO Plus",
+      "version": "R:7,250 MB/s / W:6,300 MB/s",
+      "image": "assets/samsung_990_evo_plus.jpg",
+      "officialPrice": 3999,
+      "releaseDate": "2024-09-25",
+      "months": "24 個月",
+      "hongPrice": "$4800 - $4800",
+      "waterPrice": "無數據",
+      "hongDrop": -0.200300075,
+      "waterDrop": null,
+      "types": [
+        "行貨"
+      ],
+      "source": "https://www.jumbo-computer.com/zh-hk/",
+      "spec": "https://www.samsung.com/sg/memory-storage/nvme-ssd/990-evo-plus-4tb-mz-v9s4t0bw/"
+    },
+    {
+      "name": "Vivo X300 Ultra 5G",
+      "version": "12+256GB",
+      "image": "assets/vivo_x300_ultra.jpg",
+      "officialPrice": 12999,
+      "releaseDate": "2026-03-30",
+      "months": "6 個月",
+      "hongPrice": "$10350 - $10350",
+      "waterPrice": "$7050 - $7180",
+      "hongDrop": 0.203784907,
+      "waterDrop": 0.452650204,
+      "types": [
+        "行貨",
+        "水貨"
+      ],
+      "source": "https://www.price.com.hk/product.php?p=687578",
+      "spec": "https://www.vivo.com/hk/zh/products/x300-ultra"
+    }
+  ],
+  "quotes": {
+    "Samsung Galaxy Tab S11 11吋 5G": [
+      {
+        "shop": "悅訊科技",
+        "hongPrice": 6150,
+        "waterPrice": null,
+        "detail": "🌟優質商戶💯信心保證🌟📊價格隨著市場波動 優惠期間的不同而有所調整📊🙌🏼購買時務必與銷售員溝通🫱🏻‍🫲🏼在確定訂購前❤️歡迎查詢❤️可清楚地瞭解產品📞電話/WhatsApp: 66223223🌟本店標為現金價錢💵✅10天購物信心保證有壞包換✅行貨代理免費保養12個月✅水貨本店提供18個月保養(不包括人為損壞及零件費用)🔍如需購買指定經銷商請先查詢🔍♻️提供一站式舊機換新機Trade-in服務‼️🏦門市:旺角先達廣場地下G16A號店🕰營業時間12:00pm-9:00pm💵現金/銀行轉帳/Payme/轉數快💳EPS/Visa/Master/AE/銀聯/支付寶📦順豐運費到付",
+        "address": "九龍旺角亞皆老街83號先達廣場地下G106號鋪",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=672318&id=15421446&bid=23996",
+        "link": "https://www.price.com.hk/starshop.php?s=18419",
+        "time": "2026-10-09 12:53"
+      },
+      {
+        "shop": "CityLink領域",
+        "hongPrice": null,
+        "waterPrice": 8299,
+        "detail": "接受AlipayHK/八達通/Tap&Go/WeChat Pay HK/PayMe/BOC Pay接受—（免手續費）信用卡接受—信用卡分期付款💬 Whatsapp 查詢優惠 : 61773508（旺角分店）🔗 最新優惠請到: https://www.citylink.com.hk/📌 12個月保養︱7天購物保障有壞包換🚚 門市取貨︱滿HK$500免費港澳送貨🏠 各分店聯絡方式觀塘分店TEL:61770878深水埗分店TEL:61771936旺角分店TEL:61773508北角分店TEL:61771330葵芳分店TEL:61776360荃灣分店TEL:61776380粉嶺分店TEL:61777750元朗分店TEL: 61771161",
+        "address": "九龍旺角西洋菜街1號A百寶利商業中心地下2號舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=672318&id=15636699&bid=22174",
+        "link": "https://www.price.com.hk/starshop.php?s=3376",
+        "time": "2026-10-09 12:53"
+      },
+      {
+        "shop": "泓訊科技 Wang Shun Technology",
+        "hongPrice": 6150,
+        "waterPrice": null,
+        "detail": "💓💓優質商戶💯20年信心保證💓💓🫶🏼安心訂購🤝前請先聯絡我們查詢顏色售價及貨量/留貨📲66288866💵標為現金價錢🆒10天購物信心保證有壞包換🆒行貨代理免費保養12個月🆒水貨本店提供18個月保養(不包括人為損壞及零件費用)👉🏼👉🏼如需購買指定經銷商請先查詢🆒Trade-in服務 即時估價 ‼️📲66288866🈺門市:旺角先達廣場地下G90 號店⏰營業時間12:00am-9:00pm💵現金/銀行轉帳/Payme/轉數快💳EPS/Visa/Master/AE/銀聯/支付寶📦順豐運費到付",
+        "address": "旺角亞皆老街83號先達廣場G90號舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=672318&id=15508584&bid=24414",
+        "link": "https://www.price.com.hk/starshop.php?s=19922",
+        "time": "2026-10-09 12:53"
+      },
+      {
+        "shop": "恆訊手機專門店",
+        "hongPrice": 6150,
+        "waterPrice": null,
+        "detail": "🙌🏼指定產品👏🏼享有星級商戶提供嘅折扣優惠🥳⭐️⭐⭐⭐⭐五星級優質商戶🈶💯信心保證💖💖💁🏼‍♀️請按👉🏻線上查詢👈🏻快速查詢當前最新價格和存貨🫶🏼🌐明確經銷商不同條件下價格可能會有差異💹📱電話/WhatsApp: 60371500💯10天購物信心保證有壞包換💯行貨代理免費保養12個月💯水貨本店提供18個月保養(不包括人為損壞及零件費用)🉐提供一站式舊機換新機Trade-in服務‼️🏦門市:旺角先達廣場地下G91號店 🕰營業時間12:00pm-9:00pm💵現金/銀行轉帳/Payme/轉數快💳EPS/Visa/Master/AE/銀聯/支付寶📦順豐運費到付",
+        "address": "九龍旺角亞皆老街83號先達廣場地下G91號舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=672318&id=15420360&bid=20501",
+        "link": "https://www.price.com.hk/starshop.php?s=13594",
+        "time": "2026-10-09 12:53"
+      },
+      {
+        "shop": "家電駅 (深水埗)",
+        "hongPrice": 7299,
+        "waterPrice": null,
+        "detail": "接受 AlipayHK / 八達通 / WeChat Pay HK🏠自取點:高登電腦中心一樓99-100號舖✅WhatsApp查詢:70722921接受 AlipayHK / 八達通 / WeChat Pay HK❤️深水埗電器城❤️18年旗艦店🌟三星指定零售商💁🏼‍♂️接受電子支付😍🙆🏻‍♂️原裝行貨🥰安心又放心💰貨到付款🚇深水埗MTR D2出口👨🏻‍🔬超長14日有壞包換🔧（保留完整包裝外盒）💁🏻‍♂️現場驗貨 有壞包換保證🙋🏻‍♂️✅提供 轉數快,EPS,VISA,銀聯,分期付款💳⏰星期一至日:11:30aM-20:00PM",
+        "address": "九龍深水埗欽州街94A高登電腦中心1樓99 & K6, K7號舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=672318&id=15424585&bid=20601",
+        "link": "https://www.price.com.hk/starshop.php?s=13613",
+        "time": "2026-10-09 12:53"
+      },
+      {
+        "shop": "NLC Technology Company",
+        "hongPrice": 7499,
+        "waterPrice": null,
+        "detail": "接受 AlipayHK / 八達通 / Tap & Go / WeChat Pay HK👑全新原裝香港行貨1年原廠保養 只售香港行貨產品🚛旺角自取 全港特快免費送貨 設公司工商區貨到付款💳另設消費券/八達通/Visa/Master/AE即場貨到付款💰現金優惠報價 支持公司支票/Payme/轉數快/EPS/信用咭可查詢💼學校、各機構團體、非牟利等組織可享至60天付款期💼出貨前可代設定安裝 提供客製化服務🔧提供各種客製化服務 升級Ram/SSD/系統轉移/設定安裝Etc☎查詢可電/Whatsapp:52129122📧產品諮詢/索取報價單:info@nlc-technology.com⌚旺角廣華街廣發商業中心5樓505室 大廈設車場上貨⌚星期一至日至晚上11時 請先聯絡",
+        "address": "旺角廣華街48號廣發商業中心5樓505室",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=672318&id=15431152&bid=22821",
+        "link": "https://www.price.com.hk/starshop.php?s=2421",
+        "time": "2026-10-09 12:53"
+      }
+    ],
+    "ASUS TUF GeForce RTX 5060 Ti": [
+      {
+        "shop": "Jumbo Computer",
+        "hongPrice": 5800,
+        "waterPrice": null,
+        "detail": "Jumbo Computer 官方報價",
+        "address": "深水埗/旺角門市",
+        "addressUrl": "https://www.jumbo-computer.com/",
+        "link": "https://www.jumbo-computer.com/zh-hk/products/asus-tuf-geforce-rtx-5060-ti-oc-8gb-gddr7-tuf-rtx5060ti-o8g-gaming-di-e506ty8",
+        "time": "2026-10-09 12:53"
+      }
+    ],
+    "Samsung 4TB 990 EVO Plus SSD": [
+      {
+        "shop": "Jumbo Computer",
+        "hongPrice": 4800,
+        "waterPrice": null,
+        "detail": "Jumbo Computer 官方報價",
+        "address": "深水埗/旺角門市",
+        "addressUrl": "https://www.jumbo-computer.com/",
+        "link": "https://www.jumbo-computer.com/zh-hk/products/samsung-4tb-990-evo-plus-mz-v9s4t0bw-m-2-2280-pcie-4-0-x4-5-0-x2-nvme-2-0-ssd",
+        "time": "2026-10-09 12:53"
+      }
+    ],
+    "Vivo X300 Ultra 5G": [
+      {
+        "shop": "君滙數碼 GRAND DIGITAL",
+        "hongPrice": 10350,
+        "waterPrice": 7050,
+        "detail": "❤️行貨16+512$10250❤️❤️1Tb$11550❤️水貨12+256$6950❤️12+512$7870❤️16+512$8400❤️❤️16+1Tb$9250❤️貨品亦可在⭕️將軍澳⭕️元朗⭕️旺角⭕️門市分店交收 💁🏽❗️安心訂購❗️前請先聯絡我們查詢/留貨，電話/whatsapp:59192443 微信id:granddigital本公司成立於2008年，現將業務推廣至網上，誠信交易，價錢公道，信心保證售後7天有壞包換，行貨水貨同樣提供一年保養(水貨機款不包零件費)，售後必跟進如有任何需要/查詢，歡迎致電，線上，whatsapp，微信，聯絡我們，謝謝如欲購買，請先聯絡我們留貨",
+        "address": "九龍旺角彌敦道608號總統商業大廈W商場2樓207舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=687578&id=15603213&bid=20504",
+        "link": "https://www.price.com.hk/starshop.php?s=5850",
+        "time": "2026-10-09 12:54"
+      },
+      {
+        "shop": "珀譽生活科技",
+        "hongPrice": 10350,
+        "waterPrice": 7180,
+        "detail": "行貨🔴16+512$10250🔴，1TB$11800水貨🔴12+256$7080🔴，🔴12+512$7870🔴🔴16+512$8400🔴🔴16+1TB$9300🔴⚠️貨品可在旺角❗️元朗❗️將軍澳❗️‼️門市分店交收‼️⚠️️ 🙋🏻‍♀️，「安心訂購」前，請先聯絡我們查詢/留貨，電話/whatsapp:66191280 微信id:okctelecom本公司成立於2008年，現將業務推廣至網上，誠信交易，價錢公道，信心保證售後7天有壞e包換，行貨水貨同樣提供一年保養，售後必跟進如有任何需要/查詢，歡迎致電，線上，whatsapp，微信，聯絡我們，謝謝如欲購買，請先聯絡我們留貨‼️",
+        "address": "九龍旺角彌敦道608號總統商業大廈一樓149號舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=687578&id=15602853&bid=23605",
+        "link": "https://www.price.com.hk/starshop.php?s=5822",
+        "time": "2026-10-09 12:54"
+      },
+      {
+        "shop": "富士數碼",
+        "hongPrice": 10350,
+        "waterPrice": 7150,
+        "detail": "⭐行貨 16+512 $10250/1TB $11350⭐⭐12+256$7050⭐12+512$7850⭐16+512$8400⭐16+1Tb$9300⭐🔰觀塘🔰旺角🔰屯門🔰元朗🔰天水圍🔰沙田🔰馬鞍山或其他地方取貨歡迎致電/whatsapp查詢🔰📦可安排順豐運費到付🚛⚠️安心訂購前請致電查詢/留貨⚠️☎️聯絡電話:23811188/whatsapp/wechat :61624658☎️✅香港行貨原廠保養一年✅✅水貨7天有壞包換,店保一年✅💰接受現金/VISA/EPS/人民幣/國內微訊轉帳/Payme/轉數快/AE/支付寶付款💰💳EPS 1%,支付寶,微訊,AE,VISA 3%手續費🏢地址:旺角先達廣場地下G88🕰營業時間:中午12時-晚上9時📲歡迎舊機換新機 現場即時報價",
+        "address": "九龍旺角亞皆老街83號先達廣場G88鋪",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=687578&id=15620580&bid=20512",
+        "link": "https://www.price.com.hk/starshop.php?s=3363",
+        "time": "2026-10-09 12:54"
+      },
+      {
+        "shop": "駿天數碼 Sky Digital",
+        "hongPrice": null,
+        "waterPrice": 7050,
+        "detail": "🀄️內地版🔎12+256$7050🔎12+512$7850🔎16+512$8400🔎16+1Tb$9300🔎攝影套裝--📲預約交收🆗荃灣綫屯馬線(屯門↔️大圍)🆗東鐵綫(金鐘↔️沙田)🚚可安排SF/速遞運費到付🏦自取門市📍旺角總統商業大廈(W Plaza)2樓210舖🏧顯示為現金鈔票價🈹折扣優惠/留貨請WhatsApp☎️5405 8375🧑‍💻指定代理請先探詢📦貨品可享7天退換💰FPS轉數快/銀行轉帳💳所有電子支付+3%💵國內微訊/支付寶轉帳⏰營業時間: 每日12:00NN-08:00PM⚠️安心訂購前請先查詢優惠/折扣貨品庫存❗️安心訂購不代表留貨📦留貨以訂金為準",
+        "address": "九龍旺角彌敦道608號總統商業大廈2樓210A舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=687578&id=15604872&bid=20507",
+        "link": "https://www.price.com.hk/starshop.php?s=6431",
+        "time": "2026-10-09 12:54"
+      },
+      {
+        "shop": "恆訊手機專門店",
+        "hongPrice": null,
+        "waterPrice": 7050,
+        "detail": "⭐️⭐⭐⭐⭐五星級優質商戶🈶💯信心保證💖💖💁🏼‍♀️請按👉🏻線上查詢👈🏻快速查詢當前最新價格和存貨🫶🏼🌐明確經銷商不同條件下價格可能會有差異💹📱電話/WhatsApp: 60371500💯10天購物信心保證有壞包換💯行貨代理免費保養12個月💯水貨本店提供18個月保養(不包括人為損壞及零件費用)🉐提供一站式舊機換新機Trade-in服務‼️🏦門市:旺角先達廣場地下G91號店 🕰營業時間12:00pm-9:00pm💵現金/銀行轉帳/Payme/轉數快💳EPS/Visa/Master/AE/銀聯/支付寶📦順豐運費到付",
+        "address": "九龍旺角亞皆老街83號先達廣場地下G91號舖",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=687578&id=15602089&bid=20501",
+        "link": "https://www.price.com.hk/starshop.php?s=13594",
+        "time": "2026-10-09 12:54"
+      },
+      {
+        "shop": "悅訊科技",
+        "hongPrice": null,
+        "waterPrice": 7050,
+        "detail": "國行 12+256 $6950 / 16+512$8350 / 16+1TB $9300🌟五星級優質升級商戶💯信心保證🌟📊價格隨著市場波動 優惠期間的不同而有所調整，不同顏色會有不同價錢，到店詢問價錢為準，歡迎查詢❤️可清楚地瞭解產品📞電話/WhatsApp: 66223223🌟本店標為現金價錢💵✅10天購物信心保證有壞包換✅行貨代理免費保養12個月✅水貨本店提供18個月保養(不包括人為損壞及零件費用)🔍如需購買指定經銷商請先查詢🔍♻️提供一站式舊機換新機Trade-in服務‼️🏦門市:旺角先達廣場地下G106號店🕰營業時間12:00pm-9:00pm💵現金/銀行轉帳/Payme/轉數快💳EPS/Visa/Master/AE/銀聯/支付寶📦順豐運費到付",
+        "address": "九龍旺角亞皆老街83號先達廣場地下G106號鋪",
+        "addressUrl": "https://www.price.com.hk/nearby.php?p=687578&id=15620919&bid=23996",
+        "link": "https://www.price.com.hk/starshop.php?s=18419",
+        "time": "2026-10-09 12:54"
+      }
+    ]
+  }
+}
