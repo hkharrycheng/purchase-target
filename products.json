@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-10-09 14:20",
+  "lastUpdate": "2026-10-11 20:35",
   "targets": {
     "hongDrop": 0.4,
     "waterDrop": 0.5
@@ -13,9 +13,9 @@
       "releaseDate": "2025-09-04",
       "months": "13 個月",
       "hongPrice": "$6150 - $7499",
-      "waterPrice": "$8299 - $8299",
-      "hongDrop": 0.240709835,
-      "waterDrop": 0.076657766,
+      "waterPrice": "$5380 - $5380",
+      "hongDrop": 0.315754339,
+      "waterDrop": 0.401424121,
       "types": [
         "行貨",
         "水貨"
@@ -67,7 +67,7 @@
       "hongPrice": "$10350 - $10350",
       "waterPrice": "$7050 - $7180",
       "hongDrop": 0.203784907,
-      "waterDrop": 0.452650204,
+      "waterDrop": 0.457650589,
       "types": [
         "行貨",
         "水貨"
