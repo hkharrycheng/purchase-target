@@ -236,28 +236,67 @@ body {
 .quote-date { color: #00d4ff; font-size: 10px; background: #1e3a5f; padding: 2px 6px; border-radius: 4px; }
 .no-quote { text-align: center; color: #666; padding: 30px; font-size: 13px; }
 
-/* 日期篩選器 */
+/* 日期篩選器 - Slider */
 .date-filter {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   margin-bottom: 14px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   background: #1e1e35;
   border-radius: 8px;
 }
-.date-filter label { font-size: 12px; color: #888; }
-.date-filter select {
+.date-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.date-filter-label { font-size: 12px; color: #888; }
+.date-filter-value {
+  font-size: 13px;
+  color: #00d4ff;
+  font-weight: 600;
+}
+.date-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.date-slider {
   flex: 1;
-  background: #0d0d1a;
-  color: #e0e0e0;
-  border: 1px solid #2a2a4a;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 12px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #2a2a4a;
+  border-radius: 3px;
+  outline: none;
   cursor: pointer;
 }
-.date-filter select:focus { outline: none; border-color: #00d4ff; }
+.date-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.date-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.date-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #666;
+  margin-top: 4px;
+}
 .date-filter .quote-count { font-size: 11px; color: #666; white-space: nowrap; }
 
 .footer {
@@ -303,11 +342,18 @@ body {
     <div class="modal-body">
       <div class="modal-summary" id="modalSummary"></div>
       <div class="date-filter">
-        <label>📅 日期</label>
-        <select id="dateSelect" onchange="filterQuotesByDate()">
-          <option value="all">全部日期</option>
-        </select>
-        <span class="quote-count" id="quoteCount"></span>
+        <div class="date-filter-header">
+          <span class="date-filter-label">📅 從此日期起</span>
+          <span class="date-filter-value" id="dateSliderValue">最新</span>
+        </div>
+        <div class="date-slider-wrap">
+          <input type="range" class="date-slider" id="dateSlider" min="0" max="0" value="0" oninput="filterQuotesBySlider()">
+          <span class="quote-count" id="quoteCount"></span>
+        </div>
+        <div class="date-slider-labels">
+          <span id="sliderMinLabel">最早</span>
+          <span id="sliderMaxLabel">最新</span>
+        </div>
       </div>
       <div class="quote-list" id="modalQuotes"></div>
     </div>
@@ -315,7 +361,7 @@ body {
 </div>
 
 <div class="footer">
-  HIS Tools © 2026 · 貨品監控助手 v1.02<br>
+  HIS Tools © 2026 · 貨品監控助手 v1.03<br>
   數據來源：Price.com.hk / Jumbo Computer
 </div>
 
@@ -469,34 +515,51 @@ function openModal(index) {
   document.body.style.overflow = 'hidden';
 }
 
+let allDates = []; // 儲存當前產品嘅所有日期（升序）
+
 function initDateFilter(quotes) {
-  const select = document.getElementById('dateSelect');
-  // 提取所有唯一日期（降序）
-  const dates = [...new Set(quotes.map(q => (q.time || '').substring(0, 10)).filter(d => d))].sort().reverse();
+  const slider = document.getElementById('dateSlider');
+  // 提取所有唯一日期（升序：最早→最新）
+  allDates = [...new Set(quotes.map(q => (q.time || '').substring(0, 10)).filter(d => d))].sort();
   
-  select.innerHTML = '<option value="all">全部日期</option>';
-  dates.forEach(d => {
-    const count = quotes.filter(q => (q.time || '').startsWith(d)).length;
-    select.innerHTML += `<option value="${d}">${d} (${count}條)</option>`;
-  });
-  
-  // 預設選最新日期
-  if (dates.length > 0) {
-    select.value = dates[0];
+  if (allDates.length === 0) {
+    slider.min = 0;
+    slider.max = 0;
+    slider.value = 0;
+    document.getElementById('dateSliderValue').textContent = '無數據';
+    document.getElementById('sliderMinLabel').textContent = '-';
+    document.getElementById('sliderMaxLabel').textContent = '-';
+    filterQuotesBySlider();
+    return;
   }
   
-  filterQuotesByDate();
+  // 設定slider範圍
+  slider.min = 0;
+  slider.max = allDates.length - 1;
+  slider.value = allDates.length - 1; // 預設最新
+  
+  // 顯示標籤
+  document.getElementById('sliderMinLabel').textContent = allDates[0];
+  document.getElementById('sliderMaxLabel').textContent = allDates[allDates.length - 1];
+  
+  filterQuotesBySlider();
 }
 
-function filterQuotesByDate() {
+function filterQuotesBySlider() {
   if (currentProductIndex < 0) return;
   const p = DATA.products[currentProductIndex];
   const allQuotes = DATA.quotes[p.name] || [];
-  const selectedDate = document.getElementById('dateSelect').value;
+  const slider = document.getElementById('dateSlider');
+  const startIndex = parseInt(slider.value);
   
+  // 從選中日期開始到最新嘅所有報價
   let filtered = allQuotes;
-  if (selectedDate !== 'all') {
-    filtered = allQuotes.filter(q => (q.time || '').startsWith(selectedDate));
+  if (allDates.length > 0 && startIndex < allDates.length) {
+    const startDate = allDates[startIndex];
+    filtered = allQuotes.filter(q => (q.time || '').substring(0, 10) >= startDate);
+    document.getElementById('dateSliderValue').textContent = startDate;
+  } else {
+    document.getElementById('dateSliderValue').textContent = '全部';
   }
   
   // 按時間降序排列
@@ -507,7 +570,7 @@ function filterQuotesByDate() {
   if (filtered.length > 0) {
     document.getElementById('modalQuotes').innerHTML = filtered.map(renderQuote).join('');
   } else {
-    document.getElementById('modalQuotes').innerHTML = '<div class="no-quote">呢日暫無報價數據</div>';
+    document.getElementById('modalQuotes').innerHTML = '<div class="no-quote">呢段時間暫無報價數據</div>';
   }
 }
 
@@ -558,7 +621,7 @@ loadData();
 </script>
 
 <footer style="text-align:center; padding:20px; color:#888; font-size:12px; border-top:1px solid #333; margin-top:30px;">
-  HIS Tools © 2026.1.02
+  HIS Tools © 2026.1.03
 </footer></body>
 </html>
 
