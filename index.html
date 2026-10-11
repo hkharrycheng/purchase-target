@@ -233,7 +233,32 @@ body {
 }
 .quote-address { color: #888; font-size: 11px; }
 .quote-address a { color: #60a5fa; text-decoration: none; }
+.quote-date { color: #00d4ff; font-size: 10px; background: #1e3a5f; padding: 2px 6px; border-radius: 4px; }
 .no-quote { text-align: center; color: #666; padding: 30px; font-size: 13px; }
+
+/* 日期篩選器 */
+.date-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: #1e1e35;
+  border-radius: 8px;
+}
+.date-filter label { font-size: 12px; color: #888; }
+.date-filter select {
+  flex: 1;
+  background: #0d0d1a;
+  color: #e0e0e0;
+  border: 1px solid #2a2a4a;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.date-filter select:focus { outline: none; border-color: #00d4ff; }
+.date-filter .quote-count { font-size: 11px; color: #666; white-space: nowrap; }
 
 .footer {
   text-align: center;
@@ -277,18 +302,26 @@ body {
     </div>
     <div class="modal-body">
       <div class="modal-summary" id="modalSummary"></div>
+      <div class="date-filter">
+        <label>📅 日期</label>
+        <select id="dateSelect" onchange="filterQuotesByDate()">
+          <option value="all">全部日期</option>
+        </select>
+        <span class="quote-count" id="quoteCount"></span>
+      </div>
       <div class="quote-list" id="modalQuotes"></div>
     </div>
   </div>
 </div>
 
 <div class="footer">
-  HIS Tools © 2026 · 貨品監控助手 v1.01<br>
+  HIS Tools © 2026 · 貨品監控助手 v1.02<br>
   數據來源：Price.com.hk / Jumbo Computer
 </div>
 
 <script>
 let DATA = null;
+let currentProductIndex = -1;
 
 // 跌價顏色邏輯：0%=紅，0~target漸變，≥target=綠
 function getDropColor(val, target) {
@@ -385,6 +418,7 @@ function renderCard(p, index) {
 }
 
 function openModal(index) {
+  currentProductIndex = index;
   const p = DATA.products[index];
   const quotes = DATA.quotes[p.name] || [];
   const hasWater = p.types.includes("水貨") && p.waterPrice !== "無數據";
@@ -423,19 +457,58 @@ function openModal(index) {
       <div class="s-value" style="color:${waterColor}">${formatDrop(p.waterDrop)}</div>
     </div>` : ''}
     <div class="summary-item">
-      <div class="s-label">推出時間</div>
-      <div class="s-value" style="color:#ccc">${p.months}</div>
+      <div class="s-label">報價記錄</div>
+      <div class="s-value" style="color:#00d4ff">${quotes.length} 條</div>
     </div>
   `;
   
-  if (quotes.length > 0) {
-    document.getElementById('modalQuotes').innerHTML = quotes.map(renderQuote).join('');
-  } else {
-    document.getElementById('modalQuotes').innerHTML = '<div class="no-quote">暫無報價數據</div>';
-  }
+  // 初始化日期篩選器
+  initDateFilter(quotes);
   
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
+}
+
+function initDateFilter(quotes) {
+  const select = document.getElementById('dateSelect');
+  // 提取所有唯一日期（降序）
+  const dates = [...new Set(quotes.map(q => (q.time || '').substring(0, 10)).filter(d => d))].sort().reverse();
+  
+  select.innerHTML = '<option value="all">全部日期</option>';
+  dates.forEach(d => {
+    const count = quotes.filter(q => (q.time || '').startsWith(d)).length;
+    select.innerHTML += `<option value="${d}">${d} (${count}條)</option>`;
+  });
+  
+  // 預設選最新日期
+  if (dates.length > 0) {
+    select.value = dates[0];
+  }
+  
+  filterQuotesByDate();
+}
+
+function filterQuotesByDate() {
+  if (currentProductIndex < 0) return;
+  const p = DATA.products[currentProductIndex];
+  const allQuotes = DATA.quotes[p.name] || [];
+  const selectedDate = document.getElementById('dateSelect').value;
+  
+  let filtered = allQuotes;
+  if (selectedDate !== 'all') {
+    filtered = allQuotes.filter(q => (q.time || '').startsWith(selectedDate));
+  }
+  
+  // 按時間降序排列
+  filtered = filtered.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+  
+  document.getElementById('quoteCount').textContent = `${filtered.length} 條`;
+  
+  if (filtered.length > 0) {
+    document.getElementById('modalQuotes').innerHTML = filtered.map(renderQuote).join('');
+  } else {
+    document.getElementById('modalQuotes').innerHTML = '<div class="no-quote">呢日暫無報價數據</div>';
+  }
 }
 
 function closeModal() {
@@ -453,9 +526,22 @@ function renderQuote(q) {
     ? `<div class="quote-address">📍 <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q.address)}" target="_blank">${q.address}</a></div>`
     : '';
   
+  // 格式化日期時間
+  let dateHtml = '';
+  if (q.time) {
+    const dateStr = q.time.substring(0, 16).replace('T', ' ');
+    dateHtml = `<span class="quote-date">🕐 ${dateStr}</span>`;
+  }
+  
   return `
     <div class="quote-item">
-      <div class="quote-shop">${q.shop} ${linkHtml}</div>
+      <div class="quote-shop">
+        <span>${q.shop}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${dateHtml}
+          ${linkHtml}
+        </div>
+      </div>
       <div class="quote-prices">${prices.join('')}</div>
       ${q.detail ? `<div class="quote-detail">${q.detail}</div>` : ''}
       ${addrHtml}
@@ -472,6 +558,7 @@ loadData();
 </script>
 
 <footer style="text-align:center; padding:20px; color:#888; font-size:12px; border-top:1px solid #333; margin-top:30px;">
-  HIS Tools © 2026.1.00
+  HIS Tools © 2026.1.02
 </footer></body>
 </html>
+
