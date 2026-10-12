@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-10-11 21:13 (含30日測試數據)",
+  "lastUpdate": "2026-10-12 19:42 (J05R本地爬蟲)",
   "targets": {
     "hongDrop": 0.4,
     "waterDrop": 0.5
@@ -14,8 +14,8 @@
       "months": "13 個月",
       "hongPrice": "$6150 - $7499",
       "waterPrice": "$5380 - $5380",
-      "hongDrop": 0.315754339,
-      "waterDrop": 0.401424121,
+      "hongDrop": -0.315754339,
+      "waterDrop": -0.401424121,
       "types": [
         "行貨",
         "水貨"
@@ -47,9 +47,9 @@
       "officialPrice": 3999,
       "releaseDate": "2024-09-25",
       "months": "24 個月",
-      "hongPrice": "$4800 - $4800",
+      "hongPrice": "$2699 - $2699",
       "waterPrice": "無數據",
-      "hongDrop": -0.200300075,
+      "hongDrop": -0.32508127,
       "waterDrop": null,
       "types": [
         "行貨"
@@ -66,8 +66,8 @@
       "months": "6 個月",
       "hongPrice": "$10350 - $10350",
       "waterPrice": "$7050 - $7180",
-      "hongDrop": 0.203784907,
-      "waterDrop": 0.457650589,
+      "hongDrop": -0.203784907,
+      "waterDrop": -0.457650589,
       "types": [
         "行貨",
         "水貨"
