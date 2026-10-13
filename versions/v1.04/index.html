@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>貨品監控助手 - HIS Tools</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0d0d1a;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #2a2a4a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.header-left { flex: 1; min-width: 0; }
+.header h1 {
+  font-size: 17px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2px;
+}
+.header .subtitle { font-size: 10px; color: #888; }
+.header .update-time { font-size: 10px; color: #666; margin-top: 2px; }
+.header-stats { display: flex; gap: 8px; flex-shrink: 0; }
+.stat-card {
+  background: #1e1e35;
+  border-radius: 8px;
+  padding: 5px 10px;
+  min-width: 55px;
+  text-align: center;
+}
+.stat-card .label { font-size: 9px; color: #888; margin-bottom: 1px; }
+.stat-card .value { font-size: 14px; font-weight: 700; color: #00d4ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  padding: 14px;
+}
+.product-card {
+  background: #151525;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #2a2a4a;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.product-card:hover { border-color: #00d4ff; transform: translateY(-2px); }
+.product-img-wrap {
+  width: 100%;
+  height: 120px;
+  background: #1e1e35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.product-img-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.product-info {
+  padding: 10px;
+  text-align: center;
+}
+.product-name {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  line-height: 1.3;
+  color: #fff;
+}
+.product-name a { color: #fff; text-decoration: none; }
+.product-name a:hover { color: #00d4ff; }
+.product-version {
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 4px;
+}
+.product-source {
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+.product-source a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+.product-source a:hover {
+  text-decoration: underline;
+}
+.price-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+.price-label { color: #888; min-width: 28px; text-align: right; }
+.price-value { font-weight: 600; }
+.price-hong { color: #4ade80; }
+.price-water { color: #fbbf24; }
+.drop-value { font-weight: 700; }
+.meta-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #2a2a4a;
+  font-size: 10px;
+  color: #888;
+}
+.meta-item span { color: #ccc; font-weight: 600; }
+
+/* ===== Modal 詳情面板 ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 200;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  overflow-y: auto;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: #151525;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 700px;
+  border: 1px solid #00d4ff;
+  overflow: hidden;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.modal-title {
+  flex: 1;
+  min-width: 0;
+}
+.modal-title h2 {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.modal-title h2 a { color: #fff; text-decoration: none; }
+.modal-title h2 a:hover { color: #00d4ff; }
+.modal-title .version { font-size: 11px; color: #888; }
+.modal-close {
+  background: #2a2a4a;
+  border: none;
+  color: #888;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: #ff4444; color: #fff; }
+.modal-body { padding: 16px; }
+.modal-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.summary-item {
+  background: #1e1e35;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.summary-item .s-label { font-size: 10px; color: #888; margin-bottom: 3px; }
+.summary-item .s-value { font-size: 14px; font-weight: 700; }
+.quote-list { display: flex; flex-direction: column; gap: 10px; }
+.quote-item {
+  background: #1a1a2e;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 12px;
+}
+.quote-shop {
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.quote-shop a { color: #00d4ff; text-decoration: none; font-size: 11px; white-space: nowrap; }
+.quote-prices { display: flex; gap: 16px; margin-bottom: 6px; }
+.quote-price-hong { color: #4ade80; font-weight: 600; }
+.quote-price-water { color: #fbbf24; font-weight: 600; }
+.quote-detail {
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin-bottom: 6px;
+}
+.quote-address { color: #888; font-size: 11px; }
+.quote-address a { color: #60a5fa; text-decoration: none; }
+.quote-date { color: #00d4ff; font-size: 10px; background: #1e3a5f; padding: 2px 6px; border-radius: 4px; }
+.no-quote { text-align: center; color: #666; padding: 30px; font-size: 13px; }
+
+/* 日期篩選器 - Slider */
+.date-filter {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  background: #1e1e35;
+  border-radius: 8px;
+}
+.date-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.date-filter-label { font-size: 12px; color: #888; }
+.date-filter-value {
+  font-size: 13px;
+  color: #00d4ff;
+  font-weight: 600;
+}
+.date-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.date-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #2a2a4a;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+.date-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.date-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.date-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #666;
+  margin-top: 4px;
+}
+.date-filter .quote-count { font-size: 11px; color: #666; white-space: nowrap; }
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 10px;
+  color: #444;
+}
+@media (max-width: 400px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; }
+  .product-img-wrap { height: 90px; }
+  .product-name { font-size: 11px; }
+  .header h1 { font-size: 15px; }
+  .stat-card { min-width: 48px; padding: 4px 6px; }
+  .modal-overlay { padding: 10px; }
+  .modal-summary { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>📊 貨品監控助手</h1>
+    <div class="subtitle">HIS Tools - Purchase Target Monitor</div>
+    <div class="update-time" id="updateTime">最後更新：載入中...</div>
+  </div>
+  <div class="header-stats" id="statsBar"></div>
+</div>
+
+<div class="grid" id="productGrid"></div>
+
+<!-- Modal 詳情面板 -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">
+        <h2 id="modalTitle"></h2>
+        <div class="version" id="modalVersion"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-summary" id="modalSummary"></div>
+      <div class="date-filter">
+        <div class="date-filter-header">
+          <span class="date-filter-label">📅 從此日期起</span>
+          <span class="date-filter-value" id="dateSliderValue">最新</span>
+        </div>
+        <div class="date-slider-wrap">
+          <input type="range" class="date-slider" id="dateSlider" min="0" max="0" value="0" oninput="filterQuotesBySlider()">
+          <span class="quote-count" id="quoteCount"></span>
+        </div>
+        <div class="date-slider-labels">
+          <span id="sliderMinLabel">最早</span>
+          <span id="sliderMaxLabel">最新</span>
+        </div>
+      </div>
+      <div class="quote-list" id="modalQuotes"></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  HIS Tools © 2026 · 貨品監控助手 v1.03<br>
+  數據來源：Price.com.hk / Jumbo Computer
+</div>
+
+<script>
+let DATA = null;
+let currentProductIndex = -1;
+
+// 跌價顏色邏輯：0%=紅，0~target漸變，≥target=綠
+function getDropColor(val, target) {
+  if (val === null || val === undefined || val === '') return '#888';
+  if (val <= 0) return '#ef4444'; // 紅色 - 持平/未跌
+  if (val >= target) return '#4ade80'; // 綠色 - 達標
+  // 漸變：紅→黃→綠
+  const ratio = val / target;
+  if (ratio < 0.5) {
+    const r = 239;
+    const g = Math.round(68 + (189 - 68) * (ratio * 2));
+    return `rgb(${r}, ${g}, 68)`;
+  } else {
+    const r = Math.round(239 - (239 - 74) * ((ratio - 0.5) * 2));
+    const g = Math.round(189 + (222 - 189) * ((ratio - 0.5) * 2));
+    return `rgb(${r}, ${g}, 74)`;
+  }
+}
+
+async function loadData() {
+  try {
+    const res = await fetch('products.json?v=' + Date.now());
+    DATA = await res.json();
+    document.getElementById('updateTime').textContent = '最後更新：' + DATA.lastUpdate;
+    renderStats();
+    renderProducts();
+  } catch (e) {
+    document.getElementById('updateTime').textContent = '載入失敗：' + e.message;
+  }
+}
+
+function renderStats() {
+  const total = DATA.products.length;
+  const totalQuotes = Object.values(DATA.quotes).reduce((s, a) => s + a.length, 0);
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-card"><div class="label">監控貨品</div><div class="value">${total}</div></div>
+    <div class="stat-card"><div class="label">報價總數</div><div class="value">${totalQuotes}</div></div>
+  `;
+}
+
+function formatDrop(val) {
+  if (val === null || val === undefined || val === '') return '-';
+  if (val === 0) return '持平';
+  return (val * 100).toFixed(1) + '%';
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = DATA.products.map((p, i) => renderCard(p, i)).join('');
+}
+
+function renderCard(p, index) {
+  const hasWater = p.types.includes("水貨") && p.waterPrice !== "無數據";
+  
+  const nameHtml = p.spec 
+    ? `<a href="${p.spec}" target="_blank" onclick="event.stopPropagation()">${p.name}</a>`
+    : p.name;
+  
+  const imgHtml = p.spec
+    ? `<a href="${p.spec}" target="_blank" onclick="event.stopPropagation()"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='📦'"></a>`
+    : `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='📦'">`;
+  
+  const hongColor = getDropColor(p.hongDrop, DATA.targets.hongDrop);
+  const waterColor = getDropColor(p.waterDrop, DATA.targets.waterDrop);
+  
+  return `
+    <div class="product-card" onclick="openModal(${index})">
+      <div class="product-img-wrap">${imgHtml}</div>
+      <div class="product-info">
+        <div class="product-name">${nameHtml}</div>
+        <div class="product-version">${p.version}</div>
+        ${p.source ? `<div class="product-source"><a href="${p.source}" target="_blank" onclick="event.stopPropagation()">🔗 報價來源</a></div>` : ''}
+        <div class="price-row">
+          <span class="price-label">行貨</span>
+          <span class="price-value price-hong">${p.hongPrice}</span>
+        </div>
+        ${hasWater ? `
+        <div class="price-row">
+          <span class="price-label">水貨</span>
+          <span class="price-value price-water">${p.waterPrice}</span>
+        </div>` : ''}
+        <div class="price-row">
+          <span class="price-label">跌價</span>
+          <span class="drop-value" style="color:${hongColor}">行 ${formatDrop(p.hongDrop)}</span>
+          ${hasWater ? `<span class="drop-value" style="color:${waterColor}">水 ${formatDrop(p.waterDrop)}</span>` : ''}
+        </div>
+        <div class="meta-row">
+          <div class="meta-item">官方 <span>$${p.officialPrice.toLocaleString()}</span></div>
+          <div class="meta-item">推出 <span>${p.months}</span></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openModal(index) {
+  currentProductIndex = index;
+  const p = DATA.products[index];
+  const quotes = DATA.quotes[p.name] || [];
+  const hasWater = p.types.includes("水貨") && p.waterPrice !== "無數據";
+  
+  const nameHtml = p.spec 
+    ? `<a href="${p.spec}" target="_blank">${p.name} ↗</a>`
+    : p.name;
+  
+  document.getElementById('modalTitle').innerHTML = nameHtml;
+  document.getElementById('modalVersion').textContent = p.version;
+  
+  const hongColor = getDropColor(p.hongDrop, DATA.targets.hongDrop);
+  const waterColor = getDropColor(p.waterDrop, DATA.targets.waterDrop);
+  
+  document.getElementById('modalSummary').innerHTML = `
+    <div class="summary-item">
+      <div class="s-label">官方售價</div>
+      <div class="s-value" style="color:#ccc">$${p.officialPrice.toLocaleString()}</div>
+    </div>
+    <div class="summary-item">
+      <div class="s-label">最新行貨</div>
+      <div class="s-value" style="color:#4ade80">${p.hongPrice}</div>
+    </div>
+    ${hasWater ? `
+    <div class="summary-item">
+      <div class="s-label">最新水貨</div>
+      <div class="s-value" style="color:#fbbf24">${p.waterPrice}</div>
+    </div>` : ''}
+    <div class="summary-item">
+      <div class="s-label">行貨跌價</div>
+      <div class="s-value" style="color:${hongColor}">${formatDrop(p.hongDrop)}</div>
+    </div>
+    ${hasWater ? `
+    <div class="summary-item">
+      <div class="s-label">水貨跌價</div>
+      <div class="s-value" style="color:${waterColor}">${formatDrop(p.waterDrop)}</div>
+    </div>` : ''}
+    <div class="summary-item">
+      <div class="s-label">報價記錄</div>
+      <div class="s-value" style="color:#00d4ff">${quotes.length} 條</div>
+    </div>
+  `;
+  
+  // 初始化日期篩選器
+  initDateFilter(quotes);
+  
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+let allDates = []; // 儲存當前產品嘅所有日期（升序）
+
+function initDateFilter(quotes) {
+  const slider = document.getElementById('dateSlider');
+  // 提取所有唯一日期（升序：最早→最新）
+  allDates = [...new Set(quotes.map(q => (q.time || '').substring(0, 10)).filter(d => d))].sort();
+  
+  if (allDates.length === 0) {
+    slider.min = 0;
+    slider.max = 0;
+    slider.value = 0;
+    document.getElementById('dateSliderValue').textContent = '無數據';
+    document.getElementById('sliderMinLabel').textContent = '-';
+    document.getElementById('sliderMaxLabel').textContent = '-';
+    filterQuotesBySlider();
+    return;
+  }
+  
+  // 設定slider範圍
+  slider.min = 0;
+  slider.max = allDates.length - 1;
+  slider.value = allDates.length - 1; // 預設最新
+  
+  // 顯示標籤
+  document.getElementById('sliderMinLabel').textContent = allDates[0];
+  document.getElementById('sliderMaxLabel').textContent = allDates[allDates.length - 1];
+  
+  filterQuotesBySlider();
+}
+
+function filterQuotesBySlider() {
+  if (currentProductIndex < 0) return;
+  const p = DATA.products[currentProductIndex];
+  const allQuotes = DATA.quotes[p.name] || [];
+  const slider = document.getElementById('dateSlider');
+  const startIndex = parseInt(slider.value);
+  
+  // 從選中日期開始到最新嘅所有報價
+  let filtered = allQuotes;
+  if (allDates.length > 0 && startIndex < allDates.length) {
+    const startDate = allDates[startIndex];
+    filtered = allQuotes.filter(q => (q.time || '').substring(0, 10) >= startDate);
+    document.getElementById('dateSliderValue').textContent = startDate;
+  } else {
+    document.getElementById('dateSliderValue').textContent = '全部';
+  }
+  
+  // 按時間降序排列
+  filtered = filtered.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+  
+  document.getElementById('quoteCount').textContent = `${filtered.length} 條`;
+  
+  if (filtered.length > 0) {
+    document.getElementById('modalQuotes').innerHTML = filtered.map(renderQuote).join('');
+  } else {
+    document.getElementById('modalQuotes').innerHTML = '<div class="no-quote">呢段時間暫無報價數據</div>';
+  }
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function renderQuote(q) {
+  const prices = [];
+  if (q.hongPrice) prices.push(`<span class="quote-price-hong">行貨 $${q.hongPrice}</span>`);
+  if (q.waterPrice) prices.push(`<span class="quote-price-water">水貨 $${q.waterPrice}</span>`);
+  
+  const linkHtml = q.link ? `<a href="${q.link}" target="_blank">來源 ↗</a>` : '';
+  const addrHtml = q.address 
+    ? `<div class="quote-address">📍 <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q.address)}" target="_blank">${q.address}</a></div>`
+    : '';
+  
+  // 格式化日期時間
+  let dateHtml = '';
+  if (q.time) {
+    const dateStr = q.time.substring(0, 16).replace('T', ' ');
+    dateHtml = `<span class="quote-date">🕐 ${dateStr}</span>`;
+  }
+  
+  return `
+    <div class="quote-item">
+      <div class="quote-shop">
+        <span>${q.shop}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${dateHtml}
+          ${linkHtml}
+        </div>
+      </div>
+      <div class="quote-prices">${prices.join('')}</div>
+      ${q.detail ? `<div class="quote-detail">${q.detail}</div>` : ''}
+      ${addrHtml}
+    </div>
+  `;
+}
+
+// ESC 關閉 Modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+loadData();
+</script>
+
+<footer style="text-align:center; padding:20px; color:#888; font-size:12px; border-top:1px solid #333; margin-top:30px;">
+  HIS Tools © 2026.1.03
+</footer></body>
+</html>
+
