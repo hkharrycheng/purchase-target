@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
@@ -24,7 +24,7 @@ body {
   align-items: center;
   gap: 10px;
 }
-.header-left { flex: 1; min-width: 0; }
+.header-left { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; }
 .header h1 {
   font-size: 17px;
   font-weight: 700;
@@ -320,9 +320,12 @@ body {
 
 <div class="header">
   <div class="header-left">
-    <h1>📊 貨品監控助手</h1>
-    <div class="subtitle">HIS Tools - Purchase Target Monitor</div>
-    <div class="update-time" id="updateTime">最後更新：載入中...</div>
+    <img src="logo.webp" alt="HIS Tools" style="width:34px;height:34px;border-radius:8px;object-fit:contain;flex-shrink:0">
+    <div class="tt">
+      <h1>貨品監控助手</h1>
+      <div class="subtitle">HIS Tools - Purchase Target Monitor</div>
+      <div class="update-time" id="updateTime">最後更新：載入中...</div>
+    </div>
   </div>
   <div class="header-stats" id="statsBar"></div>
 </div>
@@ -361,7 +364,7 @@ body {
 </div>
 
 <div class="footer">
-  HIS Tools © 2026 · 貨品監控助手 v1.03<br>
+  HIS Tools © 2026 · 貨品監控助手 v1.04<br>
   數據來源：Price.com.hk / Jumbo Computer
 </div>
 
@@ -621,7 +624,7 @@ loadData();
 </script>
 
 <footer style="text-align:center; padding:20px; color:#888; font-size:12px; border-top:1px solid #333; margin-top:30px;">
-  HIS Tools © 2026.1.03
+  HIS Tools © 2026.1.04
 </footer></body>
 </html>
 
