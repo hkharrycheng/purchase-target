@@ -198,6 +198,7 @@ ADHOC 呼叫 J00 → 生成 products.json → 上傳 GitHub → HTML 自動更�
 ---
 
 ## Version Control
+- v1.04 (2026-10-13): header 改用圖標相片 LOGO（移除 📊 emoji）
 
 | 版本 | 日期 | 改動 |
 |------|------|------|
